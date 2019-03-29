@@ -1,0 +1,45 @@
+{
+	"name": "cors",
+	"displayName": "",
+	"description": "",
+	"version": "0.0.1",
+	"publisher": "gs3170981",
+	"engines": {
+		"vscode": "^1.27.1"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./extension.js",
+	"contributes": {
+		"commands": [{
+				"command": "cors.login",
+				"title": "cors login"
+			},
+			{
+				"command": "cors.load",
+				"title": "cors load"
+			}
+		]
+	},
+	"scripts": {
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "node ./node_modules/vscode/bin/test"
+	},
+	"devDependencies": {
+		"@types/mocha": "^2.2.42",
+		"@types/node": "^8.10.25",
+		"eslint": "^4.11.0",
+		"typescript": "^3.1.4",
+		"vscode": "^1.1.25"
+	},
+	"__npminstall_done": false,
+	"dependencies": {
+		"axios": "^0.18.0",
+		"body-parser": "^1.18.3",
+		"express": "^4.16.4"
+	}
+}
