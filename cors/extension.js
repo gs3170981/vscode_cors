@@ -7,6 +7,7 @@ const urlencodedParser = bodyParser.urlencoded({
 	extended: false
 })
 console.log('cors - 扩展已被执行');
+vscode.window.showInformationMessage('欢迎使用 vscode Cors 扩展')
 
 function activate(context) {
 	console.log('cors - 扩展已激活');
