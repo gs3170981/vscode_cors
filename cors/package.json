@@ -2,9 +2,11 @@
 	"name": "cors",
 	"displayName": "",
 	"description": "",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"publisher": "gs3170981",
 	"icon": "cors.png",
+	"keywords": ["vscode", "cors", "cros"],
+	"homepage": "https://github.com/gs3170981/vscode_cors.git",
 	"engines": {
 		"vscode": "^1.27.1"
 	},
@@ -12,7 +14,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"*"
+		"workspaceContains: *"
 	],
 	"main": "./extension.js",
 	"contributes": {
