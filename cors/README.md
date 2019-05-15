@@ -134,6 +134,66 @@ $.ajax({
 
 返回成功
 
+### 2.3、ajax 联调（代理多地址模式）（version 0.2.6 新增）
+
+处理本地联调多个不同域的情况
+
+```js
+var VSCODE_CORS_URL = [
+  {
+    key: "http://localhost:1337",
+    proxy: "https://web-api.juejin.im",
+    other: {
+      requestHeaders: {
+        "X-Agent": "Juejin/Web"
+      }
+    }
+  },
+  {
+    key: "http://localhost:1337",
+    proxy: "http://www.lofter.com"
+  }
+  // more...
+];
+$.ajax({
+  type: "post",
+  url:
+    "http://localhost:1337/query?VSCODE_PROXY=https://web-api.juejin.im&VSCODE_CORS=" +
+    JSON.stringify(VSCODE_CORS_URL),
+  contentType: "application/json;charset=UTF-8",
+  data: JSON.stringify({
+    operationName: "",
+    query: "",
+    variables: {
+      limit: 10,
+      excluded: []
+    },
+    extensions: {
+      query: {
+        id: "5a924f4574e04d67b2ae5df189e8423d"
+      }
+    }
+  }),
+  success: function(res) {
+    console.log(res);
+  }
+});
+$.ajax({
+  type: "get",
+  url:
+    "http://localhost:1337/trade/reward/isOpen?VSCODE_PROXY=http://www.lofter.com&VSCODE_CORS=" +
+    JSON.stringify(VSCODE_CORS_URL),
+  success: function(res) {
+    console.log(res);
+  }
+});
+```
+
+![ok3](https://img-blog.csdnimg.cn/20190515155916770.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01ja3lfTG92ZQ==,size_16,color_FFFFFF,t_70)
+
+![ok4](https://img-blog.csdnimg.cn/20190515155955464.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01ja3lfTG92ZQ==,size_16,color_FFFFFF,t_70)
+返回成功
+
 ### 3、关闭
 
 ![close](https://img-blog.csdnimg.cn/20190401184642685.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01ja3lfTG92ZQ==,size_16,color_FFFFFF,t_70)

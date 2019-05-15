@@ -46,15 +46,19 @@ function activate(context) {
 					res.header('Access-Control-Allow-Origin', '*');
 					res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
 					res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
-					let VSCODE_CORS
+					let VSCODE_CORS, requestHeaders, url, VSCODE_PROXY
 					try {
 						VSCODE_CORS = JSON.parse(req.query['VSCODE_CORS'])
+						VSCODE_PROXY = req.query['VSCODE_PROXY']
 					} catch (err) {
 						res.status(500).send(`{"error": "URL中未获取到VSCODE_CORS或JSON.parse失败，请查看相关配置", "val": "${err}"}`);
 						return
 					}
-					let requestHeaders = VSCODE_CORS.other ? VSCODE_CORS.other.requestHeaders : {}
-					let url = VSCODE_CORS.proxy + req.path
+					if (VSCODE_CORS instanceof Array) {
+						VSCODE_CORS = VSCODE_CORS.find(item => item.proxy === VSCODE_PROXY)
+					}
+					requestHeaders = VSCODE_CORS.other ? VSCODE_CORS.other.requestHeaders : {}
+					url = VSCODE_CORS.proxy + req.path
 
 					if (req.method === 'GET') {
 						AJAX({
