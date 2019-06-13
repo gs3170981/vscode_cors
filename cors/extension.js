@@ -2,6 +2,7 @@ const vscode = require('vscode');
 const express = require('express');
 const AJAX = require('./src/util/axios');
 const bodyParser = require('body-parser')
+const qs = require('qs')
 
 const urlencodedParser = bodyParser.urlencoded({
 	extended: false
@@ -125,7 +126,7 @@ function activate(context) {
 									...requestHeaders,
 									'content-type': req.headers['content-type']
 								},
-								data: req.body,
+								data: qs.stringify(req.body),
 							}).then(resp => AJAX_THEN({
 								resp,
 								res

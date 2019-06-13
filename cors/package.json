@@ -2,7 +2,7 @@
   "name": "cors",
   "displayName": "cors",
   "description": "vscode Cross domain",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "publisher": "gs3170981",
   "icon": "cors.png",
   "keywords": [
@@ -50,7 +50,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "qs": "^6.7.0"
   },
   "__npminstall_done": false
 }
