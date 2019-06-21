@@ -15,6 +15,7 @@ const AJAX = ({
   axios({
     method: type,
     url: url,
+    params: data,
     data: data,
     headers: {
       'Accept': '*/*',
