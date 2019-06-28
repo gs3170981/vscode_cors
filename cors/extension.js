@@ -106,7 +106,7 @@ function activate(context) {
 									type: req.method,
 									headers: {
 										...requestHeaders,
-										'content-type': req.headers['content-type']
+										'content-type': req.headers['content-type'] || 'application/json'
 									},
 									data: str,
 								}).then(resp => AJAX_THEN({
@@ -124,7 +124,7 @@ function activate(context) {
 								type: req.method,
 								headers: {
 									...requestHeaders,
-									'content-type': req.headers['content-type']
+									'content-type': req.headers['content-type'] || 'application/x-www-form-urlencoded'
 								},
 								data: qs.stringify(req.body),
 							}).then(resp => AJAX_THEN({
