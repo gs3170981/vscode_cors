@@ -2,7 +2,7 @@
   "name": "cors",
   "displayName": "cors",
   "description": "vscode Cross domain",
-  "version": "0.2.9",
+  "version": "0.3.0",
   "publisher": "gs3170981",
   "icon": "cors.png",
   "keywords": [
@@ -22,7 +22,8 @@
   ],
   "main": "./extension.js",
   "contributes": {
-    "commands": [{
+    "commands": [
+      {
         "command": "cors.login",
         "title": "cors login"
       },
