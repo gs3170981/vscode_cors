@@ -194,6 +194,56 @@ $.ajax({
 ![ok4](https://img-blog.csdnimg.cn/20190515155955464.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01ja3lfTG92ZQ==,size_16,color_FFFFFF,t_70)
 返回成功
 
+### 2.4、ajax 联调（post + multipart/form-data 示例）（version 0.4.0 新增）
+
+```js
+let formData = new FormData();
+formData.append("file", e.files[0]); // input dom file
+
+$.ajax({
+  url: "xxx",
+  processData: false, // 取消数据解析
+  contentType: false, // 取消请求头 - 注意：在jq下会自适应为multipart文件传输方式，但axios须手动设置头
+  // axios 请求方式
+  // headers: {
+  //   'Content-Type': 'multipart/form-data',
+  // },
+  data: formData,
+  type: "post",
+  success: res => {},
+  error: res => {}
+});
+```
+
+将以上转换为
+
+```js
+var VSCODE_CORS_URL = {
+  key: "http://localhost:1337",
+  proxy: "xxx",
+  other: {
+    requestHeaders: {
+      // do something
+    }
+  }
+};
+
+let formData = new FormData();
+formData.append("file", e.files[0]); // input dom file
+
+$.ajax({
+  url: "xxx?VSCODE_CORS=" + JSON.stringify(VSCODE_CORS_URL),
+  processData: false,
+  contentType: false,
+  data: formData,
+  type: "post",
+  success: res => {},
+  error: res => {}
+});
+```
+
+返回成功
+
 ### 3、关闭
 
 ![close](https://img-blog.csdnimg.cn/20190401184642685.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01ja3lfTG92ZQ==,size_16,color_FFFFFF,t_70)
@@ -261,6 +311,11 @@ Lib
 - axios √
 
 ---
+
+## 五、QA
+
+1、vscode cors 扩展非常重视请求头，请仔细核对你当前的请求方式（Request Headers Content-Type），例如用“post+application/json”方式，是无法传参给“multipart/form-data”接收并处理转发的
+2、返回失败，多数是因为 Cookie 过期，请重新添写，少数是因为服务端接收方式与请求端不同，仔细查看请求头，区分线上可交互环境与线下交互环境的差别，注意是否有私有请求头
 
 # 关于
 
