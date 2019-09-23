@@ -2,7 +2,10 @@ const vscode = require('vscode');
 const express = require('express');
 const AJAX = require('./src/util/axios');
 const bodyParser = require('body-parser')
+const multiparty = require('multiparty')
 const qs = require('qs')
+const FormData = require('form-data');
+const fs = require('fs');
 
 const urlencodedParser = bodyParser.urlencoded({
 	extended: false
@@ -117,6 +120,35 @@ function activate(context) {
 									res
 								}))
 							})
+						} else if (req.headers['content-type'] && req.headers['content-type'].includes('multipart/form-data')) {
+							let form = new multiparty.Form()
+							form.parse(req, (err, fields, files) => {
+								const formData = new FormData()
+								Object.keys(files).map(key => {
+									formData.append(key, fs.createReadStream(files[key][0].path), {
+										knownLength: files[key][0].size
+									})
+								})
+								Object.keys(fields).map(key => {
+									formData.append(key, fields[key][0])
+								})
+								AJAX({
+									url: url,
+									type: req.method,
+									headers: {
+										'content-length': formData.getLengthSync(),
+										...formData.getHeaders(),
+										...requestHeaders,
+									},
+									data: formData,
+								}).then(resp => AJAX_THEN({
+									resp,
+									res
+								})).catch(err => AJAX_CATCH({
+									err,
+									res
+								}))
+							});
 						} else {
 							// application/x-www-form-urlencoded
 							AJAX({
@@ -126,7 +158,7 @@ function activate(context) {
 									...requestHeaders,
 									'content-type': req.headers['content-type'] || 'application/x-www-form-urlencoded'
 								},
-								data: qs.stringify(req.body),
+								data: req.body,
 							}).then(resp => AJAX_THEN({
 								resp,
 								res

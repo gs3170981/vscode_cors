@@ -233,6 +233,7 @@ headers: {
   'Accept-Language': 'zh-CN,zh;q=0.8',
   'Host': Host,
   'Origin': Host,
+  // 部分Origin需'http://' + Host，请自行在VSCODE_CORS_URL的requestHeaders中添加覆盖
   'Referer': 'http://' + Host,
   'Connection': 'keep-alive',
   'Cookie': "",
@@ -249,6 +250,10 @@ Type
 - Get √
 - Post + application/json √
 - Post + application/x-www-form-urlencoded √
+
+> 0.4.0 新增
+
+- Post + multipart/form-data √
 
 Lib
 
