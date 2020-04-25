@@ -316,6 +316,7 @@ Lib
 
 1、vscode cors 扩展非常重视请求头，请仔细核对你当前的请求方式（Request Headers Content-Type），例如用“post+application/json”方式，是无法传参给“multipart/form-data”接收并处理转发的
 2、返回失败，多数是因为 Cookie 过期，请重新添写，少数是因为服务端接收方式与请求端不同，仔细查看请求头，区分线上可交互环境与线下交互环境的差别，注意是否有私有请求头
+3、返回数据若出现 JSON 解析失败的情况，请查看自身是否含有 Cookie，请将 JSON.stringify(VSCODE_CORS_URL)更变为 encodeURIComponent(JSON.stringify(VSCODE_CORS_URL))
 
 # 关于
 
