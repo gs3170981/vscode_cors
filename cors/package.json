@@ -2,7 +2,7 @@
   "name": "cors",
   "displayName": "cors",
   "description": "vscode Cross domain",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "publisher": "gs3170981",
   "icon": "cors.png",
   "keywords": [
